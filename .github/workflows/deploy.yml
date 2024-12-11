@@ -22,7 +22,7 @@ jobs:
       run: |
         scp -o StrictHostKeyChecking=no -r * ec2-user@ec2-3-135-199-118.us-east-2.compute.amazonaws.com:~/slackbot/
 
-    - name: Create .env File on EC2
+    - name: Ensure .env File Exists on EC2
       run: ssh -o StrictHostKeyChecking=no ec2-user@ec2-3-135-199-118.us-east-2.compute.amazonaws.com "touch ~/slackbot/.env"
 
     - name: Set OpenAI API Key in .env
