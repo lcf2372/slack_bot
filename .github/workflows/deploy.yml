@@ -25,11 +25,11 @@ jobs:
     - name: Ensure .env File Exists on EC2
       run: ssh -o StrictHostKeyChecking=no ec2-user@ec2-3-135-199-118.us-east-2.compute.amazonaws.com "touch ~/slackbot/.env"
 
-    - name: Set OpenAI API Key in .env
+    - name: Set OpenAI API Key Environment Variable on EC2
       env:
         OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
       run: |
-        echo "OPENAI_API_KEY=${{ env.OPENAI_API_KEY }}" >> ~/slackbot/.env
+        ssh -o StrictHostKeyChecking=no ec2-user@ec2-3-135-199-118.us-east-2.compute.amazonaws.com "echo 'export OPENAI_API_KEY=${{ env.OPENAI_API_KEY }}' >> ~/slackbot/.env"
 
     - name: Install Dependencies on EC2
       run: |
