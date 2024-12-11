@@ -24,7 +24,7 @@ jobs:
 
     - name: Install Dependencies on EC2
       run: |
-        ssh -o StrictHostKeyChecking=no ec2-user@<EC2-PUBLIC-IP> <<EOF
+        scp -o StrictHostKeyChecking=no -r ./ ec2-user@18.217.146.30:~/slackbot/
         cd ~/slackbot
         pip3 install -r requirements.txt
         pkill -f slackBot.py || true
