@@ -20,7 +20,7 @@ jobs:
 
     - name: Copy Files to EC2
       run: |
-        scp -o StrictHostKeyChecking=no -r . ec2-user@ec2-3-135-199-118.us-east-2.compute.amazonaws.com:~/slackbot/
+        scp -o StrictHostKeyChecking=no -r * ec2-user@ec2-3-135-199-118.us-east-2.compute.amazonaws.com:~/slackbot/
     
     - name: Set OpenAI API Key
       run: |
@@ -28,7 +28,7 @@ jobs:
 
     - name: Install Dependencies on EC2
       run: |
-        scp -o StrictHostKeyChecking=no -r . ec2-user@ec2-3-135-199-118.us-east-2.compute.amazonaws.com:~/slackbot/
+        scp -o StrictHostKeyChecking=no -r * ec2-user@ec2-3-135-199-118.us-east-2.compute.amazonaws.com:~/slackbot/
         pip3 install -r requirements.txt
         pkill -f slackBot.py || true
         nohup python3 slackBot.py &
