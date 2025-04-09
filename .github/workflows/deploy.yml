@@ -20,22 +20,22 @@ jobs:
 
     - name: Copy Files to EC2
       run: |
-        scp -o StrictHostKeyChecking=no -r * ec2-user@ec2-3-135-199-118.us-east-2.compute.amazonaws.com:~/slackbot/
+        scp -o StrictHostKeyChecking=no -r * ec2-user@ec2-18-117-102-48.us-east-2.compute.amazonaws.com:~/slackbot/
 
     - name: Ensure .env File Exists on EC2
-      run: ssh -o StrictHostKeyChecking=no ec2-user@ec2-3-135-199-118.us-east-2.compute.amazonaws.com "touch ~/slackbot/.env"
+      run: ssh -o StrictHostKeyChecking=no ec2-user@ec2-18-117-102-48.us-east-2.compute.amazonaws.com "touch ~/slackbot/.env"
 
     - name: Set OpenAI API Key Environment Variable on EC2
       env:
         OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
       run: |
-        ssh -o StrictHostKeyChecking=no ec2-user@ec2-3-135-199-118.us-east-2.compute.amazonaws.com "echo 'export OPENAI_API_KEY=${{ env.OPENAI_API_KEY }}' >> ~/slackbot/.env"
+        ssh -o StrictHostKeyChecking=no ec2-user@ec2-18-117-102-48.us-east-2.compute.amazonaws.com "echo 'export OPENAI_API_KEY=${{ env.OPENAI_API_KEY }}' >> ~/slackbot/.env"
 
     - name: Install Dependencies on EC2
       run: |
-        scp -o StrictHostKeyChecking=no -r * ec2-user@ec2-3-135-199-118.us-east-2.compute.amazonaws.com:~/slackbot/
-        ssh -o StrictHostKeyChecking=no ec2-user@ec2-3-135-199-118.us-east-2.compute.amazonaws.com "cd ~/slackbot && pip3 install -r requirements.txt"
-        ssh -o StrictHostKeyChecking=no ec2-user@ec2-3-135-199-118.us-east-2.compute.amazonaws.com "pkill -f slackBot.py || true && nohup python3 slackBot.py &"
+        scp -o StrictHostKeyChecking=no -r * ec2-user@ec2-18-117-102-48.us-east-2.compute.amazonaws.com:~/slackbot/
+        ssh -o StrictHostKeyChecking=no ec2-user@ec2-18-117-102-48.us-east-2.compute.amazonaws.com "cd ~/slackbot && pip3 install -r requirements.txt"
+        ssh -o StrictHostKeyChecking=no ec2-user@ec2-18-117-102-48.us-east-2.compute.amazonaws.com "pkill -f slackBot.py || true && nohup python3 slackBot.py &"
       env:
         SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
         SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY }}
